@@ -1,8 +1,19 @@
-'''
-Created on 2017Äê5ÔÂ22ÈÕ
+import web
 
-@author: Administrator
-'''
 
-if __name__ == '__main__':
-    pass
+from ctrl.ctrl import Controller
+from ctrl.notfound import NotFound
+
+
+        
+urls = (
+#     '/notfound/tt', 'NotFound',
+    '/(.*)', 'Controller'
+)
+    
+
+app = web.application(urls, globals())
+
+
+if __name__ == "__main__":
+    app.run()
