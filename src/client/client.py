@@ -44,6 +44,9 @@ def mac_copy(value):
     process = subprocess.Popen('pbcopy', env={'LANG': 'en_US.UTF-8'}, stdin=subprocess.PIPE)
     process.communicate(value.encode('utf-8'))
 
+def win_copy(value):
+    pass
+
 def put(cmd):
     cmd_obj = {'cmd': cmd}
     res = requests.post("http://%s/%s" % (remote_ip, RequestMethods.PUT), params=cmd_obj)
@@ -109,7 +112,14 @@ def opt_getall():
         num = input("Please input the num which need to copy:")
         while type(num) != type(1):
             num = input("Please input the correctly num which need to copy:")
-        mac_copy(cmds[num-1].get('cmd'))
+        copy_content(cmds[num - 1].get('cmd'))
+
+def copy_content(cmd):
+    ostype = get_os_type()
+    if ostype == OS_TYPE.MAC:
+        mac_copy(cmd)
+    elif ostype == OS_TYPE.WINDOWS:
+        win_copy(cmd)
 
 
 def printError():
